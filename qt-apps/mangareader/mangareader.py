@@ -35,7 +35,8 @@ class Package( CMakePackageBase ):
         CMakePackageBase.__init__(self)
 
     def createPackage(self):
-        self.defines["executable"] = "src\\mangareader.exe"
+        self.defines["executable"] = "bin\\mangareader.exe"
+
         self.defines["mimetypes"] = ["application/zip", "application/vnd.comicbook+zip", "application/x-7z-compressed", "application/x-cb7", "application/x-tar", "application/x-cbt", "application/vnd.rar", "application/vnd.comicbook-rar"]
         self.defines["file_types"] = [".zip", ".cbz", ".7z", ".cb7", ".tar", ".cbr", ".rar", ".cbr"]
 

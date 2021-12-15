@@ -27,5 +27,5 @@ from Package.CMakePackageBase import *
 class Package(CMakePackageBase):
     def __init__(self):
         CMakePackageBase.__init__(self)
-        self.subinfo.options.configure.args += ["-DQARCHIVE_STATIC=OFF", "-DBUILD_EXAMPLES=ON"]
+        self.subinfo.options.configure.args += ["-DBUILD_SHARED_LIBS=ON"]
         

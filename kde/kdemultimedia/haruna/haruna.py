@@ -43,7 +43,7 @@ class Package( CMakePackageBase ):
         CMakePackageBase.__init__(self)
 
     def createPackage(self):
-        self.defines["executable"] = "src\\haruna.exe"
+        self.defines["executable"] = "bin\\haruna.exe"
 
         self.defines["mimetypes"] = ["video/mkv", "video/mp4", "video/ogm", "video/avi"]
         self.defines["file_types"] = [".mkv", ".mp4", ".ogm", ".avi"]
