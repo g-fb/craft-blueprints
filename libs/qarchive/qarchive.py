@@ -27,6 +27,5 @@ from Package.CMakePackageBase import *
 class Package(CMakePackageBase):
     def __init__(self):
         CMakePackageBase.__init__(self)
-        # use openssl for encryption
-        self.subinfo.options.configure.args += "-DQARCHIVE_STATIC=OFF"
+        self.subinfo.options.configure.args += ["-DQARCHIVE_STATIC=OFF", "-DBUILD_EXAMPLES=ON"]
         
