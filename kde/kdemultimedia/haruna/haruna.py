@@ -22,7 +22,7 @@ class subinfo( info.infoclass ):
         self.runtimeDependencies["libs/qt5/qtbase"] = None
         self.runtimeDependencies["libs/ffmpeg"] = None
         self.runtimeDependencies["libs/dbus"] = None
-        self.runtimeDependencies["kde/kdemultimedia/mpv"] = None
+        self.runtimeDependencies["libs/mpv"] = None
         self.runtimeDependencies["libs/qt5/qtgraphicaleffects"] = None
         self.runtimeDependencies["libs/qt5/qtquickcontrols2"] = None
         self.runtimeDependencies["kde/frameworks/tier1/kconfig"] = None
