@@ -6,8 +6,16 @@ class subinfo( info.infoclass ):
     def setTargets( self ):
         self.displayName = "MangaReader"
         self.description = "A manga reader for local files. Works with folders and archives (zip, rar, tar, 7z, cbz, cbr, cbt, cb7)."
-        self.defaultTarget = "master"
         self.svnTargets["master"] = "https://github.com/g-fb/mangareader"
+        self.defaultTarget = "1.6.0.1"
+        
+        for ver in ["1.6.0.1"]:
+            self.targets[ver] = f"https://github.com/g-fb/mangareader/archive/refs/tags/{ver}.tar.gz"
+            self.targetInstSrc[ver] = f"mangareader-{ver}"
+            self.archiveNames[ver] = f"mangareader-{ver}.tar.gz"
+
+        self.targetDigests["1.6.0.1"] = (["836308bb4613b88b3401c7287ad9614347d1d634adfe2f33ca5a325108e27901"], CraftHash.HashAlgorithm.SHA256)
+
 
     def setDependencies( self ):
         self.buildDependencies["kde/frameworks/extra-cmake-modules"] = None
@@ -38,6 +46,7 @@ class Package( CMakePackageBase ):
         self.defines["icon_png"] = os.path.join(self.sourceDir(), "mangareader", "icons", "windows", "150-apps-mangareader.png")
         self.defines["icon_png_44"] = os.path.join(self.sourceDir(), "mangareader", "icons", "windows", "44-apps-mangareader.png")
 
+
         self.defines["mimetypes"] = ["application/zip", "application/vnd.comicbook+zip", "application/x-7z-compressed", "application/x-cb7", "application/x-tar", "application/x-cbt", "application/vnd.rar", "application/vnd.comicbook-rar"]
         self.defines["file_types"] = [".zip", ".cbz", ".7z", ".cb7", ".tar", ".cbr", ".rar", ".cbr"]
 
@@ -45,3 +54,4 @@ class Package( CMakePackageBase ):
         self.ignoredPackages.append("libs/dbus")
 
         return TypePackager.createPackage(self)
+ 
