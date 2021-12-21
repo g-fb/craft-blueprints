@@ -38,7 +38,6 @@ class Package( CMakePackageBase ):
         self.defines["icon_png"] = os.path.join(self.sourceDir(), "mangareader", "icons", "windows", "150-apps-mangareader.png")
         self.defines["icon_png_44"] = os.path.join(self.sourceDir(), "mangareader", "icons", "windows", "44-apps-mangareader.png")
 
-
         self.defines["mimetypes"] = ["application/zip", "application/vnd.comicbook+zip", "application/x-7z-compressed", "application/x-cb7", "application/x-tar", "application/x-cbt", "application/vnd.rar", "application/vnd.comicbook-rar"]
         self.defines["file_types"] = [".zip", ".cbz", ".7z", ".cb7", ".tar", ".cbr", ".rar", ".cbr"]
 
