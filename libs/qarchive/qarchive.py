@@ -4,17 +4,10 @@ from CraftOS.osutils import OsUtils
 
 class subinfo( info.infoclass ):
     def setTargets( self ):
-        self.svnTargets["master"] = "https://github.com/antony-jr/QArchive.git"
-        
-        for ver in ["2.1.1"]:
-            self.targets[ver] = f"https://github.com/antony-jr/QArchive/archive/refs/tags/v{ver}.tar.gz"
-            self.targetInstSrc[ver] = f"QArchive-{ver}"
-            self.archiveNames[ver] = f"QArchive-{ver}.tar.gz"
-        
-        self.targetDigests['2.1.1'] = (['4ed51121a5bc9b5981d2fa3927f951a6a91ccca233d6b6dc4fef55b4ca5a2d92'], CraftHash.HashAlgorithm.SHA256)
-        self.defaultTarget = "2.1.1"
         self.displayName = "QArchive"
-
+        self.description = "QArchive is a cross-platform C++ library that modernizes libarchive. This library helps you to extract and compress archives supported by libarchive. The whole library itself is crafted to work perfectly well with the Qt event loop and thus its a perfect fit for your Qt projects."
+        self.svnTargets["master"] = "https://github.com/antony-jr/QArchive.git"
+        self.defaultTarget = "master"
 
     def setDependencies( self ):
         self.buildDependencies["kde/frameworks/extra-cmake-modules"] = None
@@ -27,5 +20,4 @@ from Package.CMakePackageBase import *
 class Package(CMakePackageBase):
     def __init__(self):
         CMakePackageBase.__init__(self)
-        self.subinfo.options.configure.args += ["-DBUILD_SHARED_LIBS=ON"]
-        
+        #self.subinfo.options.configure.args += ["-DBUILD_EXAMPLES=ON"]
