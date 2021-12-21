@@ -8,14 +8,6 @@ class subinfo( info.infoclass ):
         self.description = "A manga reader for local files. Works with folders and archives (zip, rar, tar, 7z, cbz, cbr, cbt, cb7)."
         self.defaultTarget = "master"
         self.svnTargets["master"] = "https://github.com/g-fb/mangareader"
-        
-        #for ver in ["1.6.0"]:
-            #self.targets[ver] = f"https://gitlab.com/g-fb/mangareader/-/archive/{ver}/mangareader-{ver}.tar.gz"
-            #self.targetInstSrc[ver] = f"mangareader-{ver}"
-            #self.archiveNames[ver] = f"mangareader-{ver}.tar.gz"
-
-        #self.targetDigests["1.6.0"] = (["3f1fd1af49d571029fe332daa8b14a3c7df2533adb8bb1bb52641ab20ae4849c"], CraftHash.HashAlgorithm.SHA256)
-
 
     def setDependencies( self ):
         self.buildDependencies["kde/frameworks/extra-cmake-modules"] = None
@@ -54,4 +46,3 @@ class Package( CMakePackageBase ):
         self.ignoredPackages.append("libs/dbus")
 
         return TypePackager.createPackage(self)
- 
