@@ -4,16 +4,17 @@ from CraftOS.osutils import OsUtils
 
 class subinfo( info.infoclass ):
     def setTargets( self ):
-        self.svnTargets["master"] = "https://gitlab.com/g-fb/mangareader.git"
-        
-        for ver in ["1.6.0"]:
-            self.targets[ver] = f"https://gitlab.com/g-fb/mangareader/-/archive/{ver}/mangareader-{ver}.tar.gz"
-            self.targetInstSrc[ver] = f"mangareader-{ver}"
-            self.archiveNames[ver] = f"mangareader-{ver}.tar.gz"
-            
-        self.targetDigests["1.6.0"] = (["3f1fd1af49d571029fe332daa8b14a3c7df2533adb8bb1bb52641ab20ae4849c"], CraftHash.HashAlgorithm.SHA256)
-        self.defaultTarget = "1.6.0"
         self.displayName = "MangaReader"
+        self.description = "A manga reader for local files. Works with folders and archives (zip, rar, tar, 7z, cbz, cbr, cbt, cb7)."
+        self.defaultTarget = "master"
+        self.svnTargets["master"] = "https://github.com/g-fb/mangareader"
+        
+        #for ver in ["1.6.0"]:
+            #self.targets[ver] = f"https://gitlab.com/g-fb/mangareader/-/archive/{ver}/mangareader-{ver}.tar.gz"
+            #self.targetInstSrc[ver] = f"mangareader-{ver}"
+            #self.archiveNames[ver] = f"mangareader-{ver}.tar.gz"
+
+        #self.targetDigests["1.6.0"] = (["3f1fd1af49d571029fe332daa8b14a3c7df2533adb8bb1bb52641ab20ae4849c"], CraftHash.HashAlgorithm.SHA256)
 
 
     def setDependencies( self ):
@@ -21,6 +22,7 @@ class subinfo( info.infoclass ):
         self.runtimeDependencies["virtual/base"] = None
         self.runtimeDependencies["libs/qt5/qtbase"] = None
         self.runtimeDependencies["libs/qarchive"] = None
+        self.runtimeDependencies["kde/plasma/breeze"] = None
         self.runtimeDependencies["kde/frameworks/tier1/kconfig"] = None
         self.runtimeDependencies["kde/frameworks/tier1/kcoreaddons"] = None
         self.runtimeDependencies["kde/frameworks/tier1/ki18n"] = None
@@ -33,9 +35,17 @@ from Package.CMakePackageBase import *
 class Package( CMakePackageBase ):
     def __init__(self):
         CMakePackageBase.__init__(self)
+        # used by QArchive
+        self.subinfo.options.configure.args += ["-DQT_VERSION_MAJOR=5"]
 
     def createPackage(self):
         self.defines["executable"] = "bin\\mangareader.exe"
+
+        # mangareader icons
+        self.defines["icon"] = os.path.join(self.packageDir(), "mangareader.ico")
+        self.defines["icon_png"] = os.path.join(self.sourceDir(), "mangareader", "icons", "windows", "150-apps-mangareader.png")
+        self.defines["icon_png_44"] = os.path.join(self.sourceDir(), "mangareader", "icons", "windows", "44-apps-mangareader.png")
+
 
         self.defines["mimetypes"] = ["application/zip", "application/vnd.comicbook+zip", "application/x-7z-compressed", "application/x-cb7", "application/x-tar", "application/x-cbt", "application/vnd.rar", "application/vnd.comicbook-rar"]
         self.defines["file_types"] = [".zip", ".cbz", ".7z", ".cb7", ".tar", ".cbr", ".rar", ".cbr"]
