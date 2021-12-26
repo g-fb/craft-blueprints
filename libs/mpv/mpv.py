@@ -35,4 +35,4 @@ class subinfo( info.infoclass ):
 class Package(MesonPackageBase):
     def __init__(self, **args):
         MesonPackageBase.__init__(self)
-        self.subinfo.options.configure.args += ["-Dlibmpv=true", "-Dcplayer=false", "-Djpeg=disabled"]
+        self.subinfo.options.configure.args += ["-Dlibmpv=true"]
