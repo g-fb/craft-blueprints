@@ -1,25 +1,18 @@
 import info
 from CraftConfig import *
-from CraftOS.osutils import OsUtils
 from Package.MesonPackageBase import *
 
 class subinfo( info.infoclass ):
     def setTargets( self ):
-        self.svnTargets["master"] = "https://github.com/mpv-player/mpv.git"
-        
-        #for ver in ["0.34.0"]:
-            #self.targets[ver] = f"https://github.com/mpv-player/mpv/archive/refs/tags/v{ver}.tar.gz"
-            #self.targetInstSrc[ver] = f"mpv-{ver}"
-            #self.archiveNames[ver] = f"mpv-{ver}.tar.gz"
-
-        #self.targetDigests["0.34.0"] = (["f654fb6275e5178f57e055d20918d7d34e19949bc98ebbf4a7371902e88ce309"], CraftHash.HashAlgorithm.SHA256)
-        #self.defaultTarget = "0.34.0"
-        self.defaultTarget = "master"
         self.displayName = "mpv"
         self.description = "Command line video player"
+        self.svnTargets["master"] = "https://github.com/mpv-player/mpv.git"
+        self.defaultTarget = "master"
 
     def setDependencies( self ):
+        self.buildDependencies["python-modules/meson"] = None
         self.runtimeDependencies["virtual/base"] = None
+        self.buildDependencies["binary/lua"] = None
         self.runtimeDependencies["libs/ffmpeg"] = None
         self.runtimeDependencies["libs/libass"] = None
         self.runtimeDependencies["libs/uuid"] = None
@@ -35,4 +28,9 @@ class subinfo( info.infoclass ):
 class Package(MesonPackageBase):
     def __init__(self, **args):
         MesonPackageBase.__init__(self)
-        self.subinfo.options.configure.args += ["-Dlibmpv=true"]
+        self.subinfo.options.configure.args = ["-Drubberband=disabled", "-Diconv=disabled", "-Dcplayer=false", "-Dlua=enabled", "-Dlibmpv=true"]
+        self.subinfo.options.make.args = ["-C", self.buildDir()]
+
+    def make(self):
+        with utils.ScopedEnv(self._MesonBuildSystem__env()):
+            return utils.system(Arguments(["meson", "compile", self.makeOptions(self.subinfo.options.make.args)]), cwd=self.workDir())
