@@ -61,9 +61,10 @@ class Package( CMakePackageBase ):
 
     def preArchive(self):
         # can't find library if it starts with lib
-        utils.copyFile(os.path.join(self.archiveDir(), "bin", "org", "kde", "qqc2desktopstyle", "private", "libqqc2desktopstyleplugin.dll"),
-                       os.path.join(self.archiveDir(), "bin", "org", "kde", "qqc2desktopstyle", "private", "qqc2desktopstyleplugin.dll"))
-        utils.copyFile(os.path.join(self.archiveDir(), "bin", "org", "kde", "sonnet", "libsonnetquickplugin.dll"),
-                       os.path.join(self.archiveDir(), "bin", "org", "kde", "sonnet", "sonnetquickplugin.dll"))
+        if OsUtils.isWin() :
+            utils.copyFile(os.path.join(self.archiveDir(), "bin", "org", "kde", "qqc2desktopstyle", "private", "libqqc2desktopstyleplugin.dll"),
+                        os.path.join(self.archiveDir(), "bin", "org", "kde", "qqc2desktopstyle", "private", "qqc2desktopstyleplugin.dll"))
+            utils.copyFile(os.path.join(self.archiveDir(), "bin", "org", "kde", "sonnet", "libsonnetquickplugin.dll"),
+                        os.path.join(self.archiveDir(), "bin", "org", "kde", "sonnet", "sonnetquickplugin.dll"))
 
         return super().preArchive()
