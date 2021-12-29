@@ -12,7 +12,8 @@ class subinfo( info.infoclass ):
     def setDependencies( self ):
         self.buildDependencies["python-modules/meson"] = None
         self.runtimeDependencies["virtual/base"] = None
-        self.runtimeDependencies["binary/lua"] = None
+        if OsUtils.isWin() :
+            self.runtimeDependencies["binary/lua"] = None
         self.runtimeDependencies["libs/ffmpeg"] = None
         self.runtimeDependencies["libs/libass"] = None
         self.runtimeDependencies["libs/uuid"] = None
