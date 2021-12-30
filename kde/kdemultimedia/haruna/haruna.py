@@ -48,8 +48,9 @@ class Package( CMakePackageBase ):
         CMakePackageBase.__init__(self)
 
     def createPackage(self):
-        # TODO add icons
         self.defines["executable"] = "src\\haruna.exe"
+
+        self.defines["icon"] = os.path.join(self.packageDir(), "haruna.ico")
 
         self.defines["mimetypes"] = ["video/mkv", "video/mp4", "video/ogm", "video/avi"]
         self.defines["file_types"] = [".mkv", ".mp4", ".ogm", ".avi"]
