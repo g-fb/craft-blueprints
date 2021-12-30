@@ -48,7 +48,7 @@ class Package( CMakePackageBase ):
         CMakePackageBase.__init__(self)
 
     def createPackage(self):
-        self.defines["executable"] = "src\\haruna.exe"
+        self.defines["executable"] = "bin\\haruna.exe"
 
         self.defines["icon"] = os.path.join(self.packageDir(), "haruna.ico")
 
