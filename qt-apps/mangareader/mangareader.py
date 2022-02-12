@@ -7,14 +7,15 @@ class subinfo( info.infoclass ):
         self.displayName = "MangaReader"
         self.description = "A manga reader for local files. Works with folders and archives (zip, rar, tar, 7z, cbz, cbr, cbt, cb7)."
         self.svnTargets["master"] = "https://github.com/g-fb/mangareader"
-        self.defaultTarget = "1.6.0.1"
+        self.defaultTarget = "1.7.1"
         
-        for ver in ["1.6.0.1"]:
+        for ver in ["1.6.0.1", "1.7.1"]:
             self.targets[ver] = f"https://github.com/g-fb/mangareader/archive/refs/tags/{ver}.tar.gz"
             self.targetInstSrc[ver] = f"mangareader-{ver}"
             self.archiveNames[ver] = f"mangareader-{ver}.tar.gz"
 
         self.targetDigests["1.6.0.1"] = (["836308bb4613b88b3401c7287ad9614347d1d634adfe2f33ca5a325108e27901"], CraftHash.HashAlgorithm.SHA256)
+        self.targetDigests["1.7.1"] = (["35ef020f4dbb09916e1c111b0629fe5bc7ed55cd7f4d3dd4ee3b15bf510a66c1"], CraftHash.HashAlgorithm.SHA256)
 
 
     def setDependencies( self ):
