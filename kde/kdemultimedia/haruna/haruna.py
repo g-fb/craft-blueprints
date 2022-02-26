@@ -15,6 +15,8 @@ class subinfo( info.infoclass ):
             self.archiveNames[ver] = f"haruna-v{ver}.tar.gz"
 
         self.targetDigests["0.7.3"] = (["8ef599a6b986fdff85067d9c9c47aa8d70f07e365446036247b8da1237d75bd4"], CraftHash.HashAlgorithm.SHA256)
+        # patch needed for mpv master, master is used because mpv 0.34.0 doesn't have meson
+        self.patchToApply["0.7.3"] = [("0001-remove-mpv_opengl_init_params_extra_exts-field.patch", 1)]
 
     def setDependencies( self ):
         self.buildDependencies["kde/frameworks/extra-cmake-modules"] = None
