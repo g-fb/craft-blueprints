@@ -2,8 +2,8 @@ import info
 from CraftConfig import *
 from Package.MesonPackageBase import *
 
-class subinfo( info.infoclass ):
-    def setTargets( self ):
+class subinfo(info.infoclass):
+    def setTargets(self):
         self.displayName = "mpv"
         self.description = "Command line video player"
         self.svnTargets["master"] = "https://github.com/mpv-player/mpv.git"
@@ -12,8 +12,7 @@ class subinfo( info.infoclass ):
     def setDependencies( self ):
         self.buildDependencies["python-modules/meson"] = None
         self.runtimeDependencies["virtual/base"] = None
-        if OsUtils.isWin() :
-            self.runtimeDependencies["binary/lua"] = None
+        self.runtimeDependencies["libs/lua"] = None
         self.runtimeDependencies["libs/ffmpeg"] = None
         self.runtimeDependencies["libs/libass"] = None
         self.runtimeDependencies["libs/uuid"] = None
@@ -22,14 +21,13 @@ class subinfo( info.infoclass ):
         self.runtimeDependencies["libs/zlib"] = None
         self.runtimeDependencies["libs/libarchive"] = None
         self.runtimeDependencies["libs/lcms2"] = None
-        self.runtimeDependencies["libs/jack2"] = None
         self.runtimeDependencies["libs/libjpeg-turbo"] = None
         self.runtimeDependencies["libs/rubberband"] = None
 
 class Package(MesonPackageBase):
     def __init__(self, **args):
         MesonPackageBase.__init__(self)
-        self.subinfo.options.configure.args = ["-Drubberband=disabled", "-Diconv=disabled", "-Dcplayer=false", "-Dlua=enabled", "-Dlibmpv=true"]
+        self.subinfo.options.configure.args += ["-Drubberband=disabled", "-Dlua=enabled", "-Dlibmpv=true"]
         self.subinfo.options.make.args = ["-C", self.buildDir()]
 
     def make(self):
