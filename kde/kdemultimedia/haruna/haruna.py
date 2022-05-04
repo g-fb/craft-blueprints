@@ -7,13 +7,14 @@ class subinfo( info.infoclass ):
         self.displayName = "Haruna"
         self.description = "Haruna video player"
         self.svnTargets["master"] = "https://invent.kde.org/multimedia/haruna.git"
-        self.defaultTarget = "0.7.3"
+        self.defaultTarget = "0.8.0"
 
-        for ver in ["0.7.3"]:
+        for ver in ["0.8.0", "0.7.3"]:
             self.targets[ver] = f"https://invent.kde.org/multimedia/haruna/-/archive/v{ver}/haruna-v{ver}.tar.gz"
             self.targetInstSrc[ver] = f"haruna-v{ver}"
             self.archiveNames[ver] = f"haruna-v{ver}.tar.gz"
 
+        self.targetDigests["0.8.0"] = (["7af284278a482758c55a85c38eda386f8ea1a16d383e36ce03f9b02e76ebf44d"], CraftHash.HashAlgorithm.SHA256)
         self.targetDigests["0.7.3"] = (["8ef599a6b986fdff85067d9c9c47aa8d70f07e365446036247b8da1237d75bd4"], CraftHash.HashAlgorithm.SHA256)
         # patch needed for mpv master, master is used because mpv 0.34.0 doesn't have meson
         self.patchToApply["0.7.3"] = [("0001-remove-mpv_opengl_init_params_extra_exts-field.patch", 1)]
@@ -27,6 +28,7 @@ class subinfo( info.infoclass ):
         self.runtimeDependencies["libs/mpv"] = None
         self.runtimeDependencies["libs/qt5/qtgraphicaleffects"] = None
         self.runtimeDependencies["libs/qt5/qtquickcontrols2"] = None
+        self.runtimeDependencies["kde/plasma/breeze"] = None
         self.runtimeDependencies["kde/frameworks/tier1/kconfig"] = None
         self.runtimeDependencies["kde/frameworks/tier1/kirigami"] = None
         self.runtimeDependencies["kde/frameworks/tier1/ki18n"] = None
@@ -60,9 +62,7 @@ class Package( CMakePackageBase ):
     def preArchive(self):
         # can't find library if it starts with lib
         if OsUtils.isWin() :
-            utils.copyFile(os.path.join(self.archiveDir(), "bin", "org", "kde", "qqc2desktopstyle", "private", "libqqc2desktopstyleplugin.dll"),
-                        os.path.join(self.archiveDir(), "bin", "org", "kde", "qqc2desktopstyle", "private", "qqc2desktopstyleplugin.dll"))
             utils.copyFile(os.path.join(self.archiveDir(), "bin", "org", "kde", "sonnet", "libsonnetquickplugin.dll"),
-                        os.path.join(self.archiveDir(), "bin", "org", "kde", "sonnet", "sonnetquickplugin.dll"))
+                           os.path.join(self.archiveDir(), "bin", "org", "kde", "sonnet", "sonnetquickplugin.dll"))
 
         return super().preArchive()
