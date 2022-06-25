@@ -7,17 +7,15 @@ class subinfo( info.infoclass ):
         self.displayName = "MangaReader"
         self.description = "A manga reader for local files. Works with folders and archives (zip, rar, tar, 7z, cbz, cbr, cbt, cb7)."
         self.svnTargets["master"] = "https://github.com/g-fb/mangareader"
-        self.defaultTarget = "2.0.1"
+        self.defaultTarget = "2.0.3"
         
-        for ver in ["2.0.1", "1.7.2", "1.7.1", "1.6.0.1"]:
+        for ver in ["2.0.3", "1.7.2"]:
             self.targets[ver] = f"https://github.com/g-fb/mangareader/archive/refs/tags/{ver}.tar.gz"
             self.targetInstSrc[ver] = f"mangareader-{ver}"
             self.archiveNames[ver] = f"mangareader-{ver}.tar.gz"
 
-        self.targetDigests["2.0.1"] = (["a4ade2945f97299bdb56a08ff5bde805b60824c668aa0d0a01aebabd0f4e7ee1"], CraftHash.HashAlgorithm.SHA256)
+        self.targetDigests["2.0.3"] = (["d0896ec40d9e08a731fa1a81921dea9667bc19e4590184cd7c67393c852a214b"], CraftHash.HashAlgorithm.SHA256)
         self.targetDigests["1.7.2"] = (["ac9e6ae8328874763d7a13f91dc71f459e63e80668badea85f1f79d614e11ba0"], CraftHash.HashAlgorithm.SHA256)
-        self.targetDigests["1.7.1"] = (["35ef020f4dbb09916e1c111b0629fe5bc7ed55cd7f4d3dd4ee3b15bf510a66c1"], CraftHash.HashAlgorithm.SHA256)
-        self.targetDigests["1.6.0.1"] = (["836308bb4613b88b3401c7287ad9614347d1d634adfe2f33ca5a325108e27901"], CraftHash.HashAlgorithm.SHA256)
 
 
     def setDependencies( self ):
@@ -36,11 +34,6 @@ class subinfo( info.infoclass ):
 from Package.CMakePackageBase import *
 
 class Package( CMakePackageBase ):
-    def __init__(self):
-        CMakePackageBase.__init__(self)
-        # used by QArchive
-        self.subinfo.options.configure.args += ["-DQT_VERSION_MAJOR=5"]
-
     def createPackage(self):
         self.defines["executable"] = "bin\\mangareader.exe"
 
@@ -51,7 +44,7 @@ class Package( CMakePackageBase ):
 
 
         self.defines["mimetypes"] = ["application/zip", "application/vnd.comicbook+zip", "application/x-7z-compressed", "application/x-cb7", "application/x-tar", "application/x-cbt", "application/vnd.rar", "application/vnd.comicbook-rar"]
-        self.defines["file_types"] = [".zip", ".cbz", ".7z", ".cb7", ".tar", ".cbr", ".rar", ".cbr"]
+        self.defines["file_types"] = [".zip", ".cbz", ".7z", ".cb7", ".tar", ".cbt", ".rar", ".cbr"]
 
         self.ignoredPackages.append("binary/mysql")
         self.ignoredPackages.append("libs/dbus")
