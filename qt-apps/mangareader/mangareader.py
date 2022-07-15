@@ -7,14 +7,14 @@ class subinfo( info.infoclass ):
         self.displayName = "MangaReader"
         self.description = "A manga reader for local files. Works with folders and archives (zip, rar, tar, 7z, cbz, cbr, cbt, cb7)."
         self.svnTargets["master"] = "https://github.com/g-fb/mangareader"
-        self.defaultTarget = "2.0.3"
+        self.defaultTarget = "2.0.4"
         
-        for ver in ["2.0.3", "1.7.2"]:
+        for ver in ["2.0.4", "1.7.2"]:
             self.targets[ver] = f"https://github.com/g-fb/mangareader/archive/refs/tags/{ver}.tar.gz"
             self.targetInstSrc[ver] = f"mangareader-{ver}"
             self.archiveNames[ver] = f"mangareader-{ver}.tar.gz"
 
-        self.targetDigests["2.0.3"] = (["d0896ec40d9e08a731fa1a81921dea9667bc19e4590184cd7c67393c852a214b"], CraftHash.HashAlgorithm.SHA256)
+        self.targetDigests["2.0.4"] = (["da9d0323f5862b232a844fc7a46cf2fb84149075172c4da6d10c64ff2711cd28"], CraftHash.HashAlgorithm.SHA256)
         self.targetDigests["1.7.2"] = (["ac9e6ae8328874763d7a13f91dc71f459e63e80668badea85f1f79d614e11ba0"], CraftHash.HashAlgorithm.SHA256)
 
 
