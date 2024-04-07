@@ -7,21 +7,21 @@ class subinfo( info.infoclass ):
         self.displayName = "MangaReader"
         self.description = "A manga reader for local files. Works with folders and archives (zip, rar, tar, 7z, cbz, cbr, cbt, cb7)."
         self.svnTargets["master"] = "https://github.com/g-fb/mangareader"
-        self.defaultTarget = "2.0.4"
+        self.defaultTarget = "2.2.0"
         
-        for ver in ["2.0.4", "1.7.2"]:
+        for ver in ["2.2.0"]:
             self.targets[ver] = f"https://github.com/g-fb/mangareader/archive/refs/tags/{ver}.tar.gz"
             self.targetInstSrc[ver] = f"mangareader-{ver}"
             self.archiveNames[ver] = f"mangareader-{ver}.tar.gz"
 
-        self.targetDigests["2.0.4"] = (["da9d0323f5862b232a844fc7a46cf2fb84149075172c4da6d10c64ff2711cd28"], CraftHash.HashAlgorithm.SHA256)
-        self.targetDigests["1.7.2"] = (["ac9e6ae8328874763d7a13f91dc71f459e63e80668badea85f1f79d614e11ba0"], CraftHash.HashAlgorithm.SHA256)
+        self.targetDigests["2.2.0"] = (["5f02a4cbcc85ff223deb36aab785224438a4a33da3070d57625b07d1062fde50"], CraftHash.HashAlgorithm.SHA256)
+        self.patchToApply["2.2.0"] = [("0001-startupwidget-use-string-literal.patch", 1)]
 
 
     def setDependencies( self ):
         self.buildDependencies["kde/frameworks/extra-cmake-modules"] = None
         self.runtimeDependencies["virtual/base"] = None
-        self.runtimeDependencies["libs/qt5/qtbase"] = None
+        self.runtimeDependencies["libs/qt/qtbase"] = None
         self.runtimeDependencies["kde/plasma/breeze"] = None
         self.runtimeDependencies["kde/frameworks/tier1/karchive"] = None
         self.runtimeDependencies["kde/frameworks/tier1/kconfig"] = None
@@ -47,7 +47,6 @@ class Package( CMakePackageBase ):
         self.defines["file_types"] = [".zip", ".cbz", ".7z", ".cb7", ".tar", ".cbt", ".rar", ".cbr"]
 
         self.ignoredPackages.append("binary/mysql")
-        self.ignoredPackages.append("libs/dbus")
 
         return TypePackager.createPackage(self)
  
